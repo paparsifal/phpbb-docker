@@ -5,6 +5,10 @@ RUN apk add --no-cache dumb-init nginx \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions mysqli gd 
 
 ### phpBB
 ENV PHPBB_VERSION 3.3.7
