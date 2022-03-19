@@ -23,6 +23,8 @@ RUN curl -SL https://download.phpbb.com/pub/release/3.3/${PHPBB_VERSION}/phpBB-$
     && rm -f phpbb.tar.bz2 && rm -fR /var/www/html/install
 
 WORKDIR /var/www/html
+RUN curl -SL https://www.phpbb.com/customise/db/download/192176 -o fr.zip \
+    && unzip fr.zip && cp -R french_4_5_0/* . && rm -fR french_4_5_0/ && rm fr.zip
 
 COPY default.conf /etc/nginx/http.d/
 COPY config.php /var/www/html/
