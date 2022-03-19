@@ -20,10 +20,12 @@ RUN curl -SL https://download.phpbb.com/pub/release/3.3/${PHPBB_VERSION}/phpBB-$
     && echo "${PHPBB_SHA256}  phpbb.tar.bz2" | sha256sum -c - \
     && tar -xjf phpbb.tar.bz2 \
     && mv phpBB3/* /var/www/html/ \
-    && rm -f phpbb.tar.bz2
+    && rm -f phpbb.tar.bz2 && rm -fR /var/www/html/install
 
+WORKDIR /var/www/html
 
 COPY default.conf /etc/nginx/http.d/
+COPY config.php /var/www/html/
 
 EXPOSE 80
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
